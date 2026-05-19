@@ -1,0 +1,33 @@
+.topbar {
+    width: 100%;
+    padding: 14px 30px;
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #eee;
+}
+
+.topbar-logo {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+    text-decoration: none;
+}
+
+.logo-neo {
+    font-size: 10px;
+    color: var(--color-primary);
+    letter-spacing: 2px;
+    font-weight: 600;
+}
+
+.logo-physis {
+    font-size: 22px;
+    font-weight: 700;
+    font-style: italic;
+    color: var(--color-text);
+}
+
+/* If image logo is used, hide legacy text versions and size the img */
+.topbar-logo .site-logo { max-height: 48px; width: auto; display: block; }
+.logo-neo, .logo-physis { display: none; }

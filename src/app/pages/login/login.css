@@ -1,0 +1,21 @@
+.auth-page { min-height: 100vh; background: #f0f4f5; display: flex; align-items: center; justify-content: center; }
+.auth-card  { display: flex; width: 780px; min-height: 440px; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,0.1); }
+.auth-left  { width: 340px; background: linear-gradient(160deg,#0d2d3a 60%,#1a5a6a 100%); display: flex; align-items: flex-end; padding: 36px 32px; flex-shrink: 0; }
+.auth-left h2 { color: #ffffff; font-size: 26px; font-weight: 800; margin: 0 0 10px; }
+.auth-left p  { color: #a0c4d0; font-size: 13px; line-height: 1.6; margin: 0 0 16px; }
+.left-line { width: 32px; height: 3px; background: #5ba3b8; border-radius: 2px; margin-bottom: 12px; }
+.avatars { display: flex; align-items: center; gap: 10px; }
+.av { width: 30px; height: 30px; border-radius: 50%; background: #2d6a7f; border: 2px solid #0d2d3a; margin-left: -8px; }
+.av:first-child { margin-left: 0; }
+.avatars span { color: #c0dde6; font-size: 12px; }
+.auth-right { flex: 1; background: #ffffff; padding: 48px 44px; display: flex; flex-direction: column; justify-content: center; }
+.auth-right h1 { font-size: 22px; font-weight: 800; color: #1a2a3a; margin: 0 0 6px; text-align: center; letter-spacing: 1px; }
+.auth-sub { text-align: center; color: #888; font-size: 13px; margin: 0 0 28px; }
+.form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 18px; }
+.form-group label { font-size: 11px; font-weight: 700; color: #444; letter-spacing: 0.5px; }
+.form-group input { background: #f0f4f5; border: none; border-radius: 8px; padding: 12px 14px; font-size: 13px; outline: none; }
+.btn-auth { width: 100%; background: #2d6a7f; color: #ffffff; border: none; border-radius: 8px; padding: 14px; font-size: 13px; font-weight: 700; cursor: pointer; transition: background 0.25s, transform 0.2s; }
+.btn-auth:hover  { background: #1e4d5f; transform: scale(1.02); }
+.btn-auth:active { transform: scale(0.98); }
+.auth-footer { text-align: center; font-size: 12px; color: #888; margin-top: 18px; }
+.auth-footer a { color: #2d6a7f; font-weight: 600; }

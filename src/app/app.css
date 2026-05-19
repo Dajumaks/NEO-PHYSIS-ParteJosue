@@ -1,0 +1,19 @@
+.layout-sidebar {
+    display: flex;
+}
+
+.layout-topbar {
+    display: flex;
+    flex-direction: column;
+}
+
+.main-con-sidebar {
+    margin-left: 160px;
+    flex: 1;
+    min-height: 100vh;
+}
+
+.main-sin-sidebar {
+    flex: 1;
+    min-height: 100vh;
+}
