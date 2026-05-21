@@ -1,3 +1,4 @@
+<!-- ══════ CARRUSEL ══════ -->
 <section class="carousel"
   (mouseenter)="pauseAutoPlay()"
   (mouseleave)="resumeAutoPlay()">
@@ -9,10 +10,6 @@
         <div class="slide-overlay">
           <h1 class="slide-titulo">NEO PHYSIS</h1>
           <p class="slide-sub">{{ slide.subtitulo }}</p>
-          <div class="slide-btns">
-            <button class="btn-primary" (click)="irAForos()">Explorar ahora</button>
-            <button class="btn-secondary" (click)="irAPublicar()">Publicar foro</button>
-          </div>
         </div>
       </div>
     }
@@ -32,22 +29,132 @@
   </div>
 </section>
 
-<section class="seccion">
-  <h2 class="seccion-titulo fade-item" #animTarget>Tendencias</h2>
-  @for (post of posts; track post.id) {
-    <div class="fade-item" #animTarget>
-      <app-post-card [post]="post"></app-post-card>
-    </div>
-  }
-</section>
+<!-- ══════ CUERPO PRINCIPAL ══════ -->
+<div class="home-body">
 
-<section class="seccion">
-  <h2 class="seccion-titulo fade-item" #animTarget>Recomendados para ti</h2>
-  <div class="rec-grid">
-    @for (rec of recomendados; track rec.id; let i = $index) {
-      <div class="fade-item" #animTarget [style.transition-delay]="(i * 0.15) + 's'">
-        <app-rec-card [rec]="rec"></app-rec-card>
+  <!-- COLUMNA PRINCIPAL -->
+  <div class="home-main">
+
+    <!-- TENDENCIAS -->
+    <section class="seccion">
+      <h2 class="seccion-titulo fade-item" #animTarget>Tendencias</h2>
+
+      @for (post of posts; track post.id) {
+        <article class="reddit-card reddit-card--with-img fade-item" #animTarget>
+          <!-- Votos -->
+          <div class="votos">
+            <button class="voto-btn" (click)="votarPost(post, 1)">▲</button>
+            <span class="voto-num">{{ post.votos }}</span>
+            <button class="voto-btn" (click)="votarPost(post, -1)">▼</button>
+          </div>
+
+          <!-- Contenido -->
+          <div class="reddit-body">
+            <div class="reddit-meta">
+              <img [src]="post.avatar" [alt]="post.autor" class="autor-avatar">
+              <span class="autor-nombre">{{ post.autor }}</span>
+              <span class="autor-tiempo">• {{ post.tiempo }}</span>
+              <span class="cat-tag" [style.background]="post.categoriaColor">{{ post.categoria }}</span>
+            </div>
+
+            <h3 class="reddit-titulo">{{ post.titulo }}</h3>
+            <p class="reddit-desc">{{ post.desc }}</p>
+
+            <div class="reddit-actions">
+              <button class="action-btn">💬 {{ post.comentarios }} Comentarios</button>
+              <button class="action-btn">↑ Compartir</button>
+              <button class="action-btn save-btn">🔖</button>
+            </div>
+          </div>
+
+          <!-- Imagen destacada -->
+          <div class="reddit-img-wrap">
+            <img [src]="post.img" [alt]="post.titulo" class="reddit-img">
+          </div>
+        </article>
+      }
+    </section>
+
+    <!-- SUGERENCIAS -->
+    <section class="seccion">
+      <div class="sugerencias-header">
+        <h2 class="seccion-titulo" style="margin:0">Sugerencias para ti</h2>
+        <div class="tabs">
+          <button class="tab" [class.active]="tabActivo === 'reciente'"
+            (click)="cambiarTab('reciente')">Más Reciente</button>
+          <button class="tab" [class.active]="tabActivo === 'popular'"
+            (click)="cambiarTab('popular')">Popular</button>
+        </div>
       </div>
-    }
+
+      @for (s of sugerencias; track s.id) {
+        <article class="reddit-card fade-item" #animTarget>
+          <div class="votos">
+            <button class="voto-btn" (click)="votar(s, 1)">▲</button>
+            <span class="voto-num">{{ s.votos }}</span>
+            <button class="voto-btn" (click)="votar(s, -1)">▼</button>
+          </div>
+
+          <div class="reddit-body">
+            <div class="reddit-meta">
+              <img [src]="s.avatar" [alt]="s.autor" class="autor-avatar">
+              <span class="autor-nombre">{{ s.autor }}</span>
+              <span class="autor-tiempo">• {{ s.tiempo }}</span>
+              <span class="cat-tag" [style.background]="s.categoriaColor">{{ s.categoria }}</span>
+            </div>
+
+            <h3 class="reddit-titulo">{{ s.titulo }}</h3>
+            <p class="reddit-desc">{{ s.desc }}</p>
+
+            <div class="reddit-actions">
+              <button class="action-btn">💬 {{ s.comentarios }} Comentarios</button>
+              <button class="action-btn">↑ Compartir</button>
+              <button class="action-btn save-btn">🔖</button>
+            </div>
+          </div>
+        </article>
+      }
+    </section>
+
   </div>
-</section>
+
+  <!-- SIDEBAR DERECHO -->
+  <aside class="home-aside">
+
+    <div class="aside-card">
+      <h4 class="aside-titulo">Temas Populares</h4>
+      <div class="aside-tags">
+        <span>#Mitigación</span>
+        <span>#Bioinformática</span>
+        <span>#Tecnología Farmacéutica</span>
+        <span>#BioÉtica</span>
+        <span>#Genética</span>
+        <span>#Automatización</span>
+      </div>
+    </div>
+
+    <div class="aside-card stats-card">
+      <h4 class="aside-titulo">Estadísticas</h4>
+      <div class="stats-grid">
+        <div class="stat-item">
+          <small>TOTAL MIEMBROS</small>
+          <strong>12.4k</strong>
+        </div>
+        <div class="stat-item">
+          <small>POSTS TOTALES</small>
+          <strong>22.6k</strong>
+        </div>
+        <div class="stat-item">
+          <small>POSTS DIARIOS</small>
+          <strong>1.1k</strong>
+        </div>
+        <div class="stat-item">
+          <small>PERSONAS QUE COMENTAN</small>
+          <strong>88%</strong>
+        </div>
+      </div>
+    </div>
+
+  </aside>
+
+</div>

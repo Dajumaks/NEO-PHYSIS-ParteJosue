@@ -5,15 +5,13 @@ import {
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { PostCardComponent } from '../../shared/components/post-card/post-card';
-import { RecCardComponent } from '../../shared/components/rec-card/rec-card';
 import { PostsService } from '../../core/services/posts';
-import { Post, Recomendado, CarouselSlide } from '../../core/models/post.model';
+import { Post, CarouselSlide, Sugerencia } from '../../core/models/post.model';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, PostCardComponent, RecCardComponent],
+  imports: [CommonModule],
   templateUrl: './home.html',
   styleUrl: './home.css'
 })
@@ -21,7 +19,8 @@ export class Home implements OnInit, AfterViewInit, OnDestroy {
 
   slides: CarouselSlide[] = [];
   posts: Post[] = [];
-  recomendados: Recomendado[] = [];
+  sugerencias: Sugerencia[] = [];
+  tabActivo: 'reciente' | 'popular' = 'reciente';
 
   currentSlide = 0;
   readonly AUTOPLAY_DELAY = 4000;
@@ -39,7 +38,7 @@ export class Home implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit(): void {
     this.slides = this.postsService.getSlides();
     this.posts = this.postsService.getPosts();
-    this.recomendados = this.postsService.getRecomendados();
+    this.sugerencias = this.postsService.getSugerencias();
     this.startAutoPlay();
   }
 
@@ -67,9 +66,22 @@ export class Home implements OnInit, AfterViewInit, OnDestroy {
 
   nextSlide(): void { this.goToSlide(this.currentSlide + 1); }
   prevSlide(): void { this.goToSlide(this.currentSlide - 1); }
-
   pauseAutoPlay(): void { this.stopAutoPlay(); }
   resumeAutoPlay(): void { this.startAutoPlay(); }
+
+  cambiarTab(tab: 'reciente' | 'popular'): void {
+    this.tabActivo = tab;
+    this.sugerencias = [...this.postsService.getSugerencias()]
+      .sort((a, b) => tab === 'popular' ? b.votos - a.votos : a.id - b.id);
+  }
+
+  votar(s: Sugerencia, dir: 1 | -1): void {
+    s.votos += dir;
+  }
+
+  votarPost(post: Post, dir: 1 | -1): void {
+    post.votos += dir;
+  }
 
   private startAutoPlay(): void {
     this.stopAutoPlay();
@@ -85,9 +97,6 @@ export class Home implements OnInit, AfterViewInit, OnDestroy {
       this.autoPlayInterval = null;
     }
   }
-
-  irAForos(): void { this.router.navigate(['/foros']); }
-  irAPublicar(): void { this.router.navigate(['/publicar']); }
 
   trackById(_: number, item: { id: number }): number { return item.id; }
 }

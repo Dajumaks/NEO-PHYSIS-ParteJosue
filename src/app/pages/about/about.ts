@@ -17,27 +17,27 @@ import { ValorCard, MisionCard } from '../../core/models/post.model';
 export class About implements OnInit, AfterViewInit, OnDestroy {
 
   misiones: MisionCard[] = [];
-  valores: ValorCard[]   = [];
+  valores: ValorCard[] = [];
 
   contadores = [
     { id: 1, label: 'Investigadores', target: 1200, current: 0, sufijo: '+' },
-    { id: 2, label: 'Publicaciones',  target: 340,  current: 0, sufijo: '' },
-    { id: 3, label: 'Universidades',  target: 28,   current: 0, sufijo: '' },
-    { id: 4, label: 'Países',         target: 12,   current: 0, sufijo: '' }
+    { id: 2, label: 'Publicaciones', target: 340, current: 0, sufijo: '' },
+    { id: 3, label: 'Universidades', target: 28, current: 0, sufijo: '' },
+    { id: 4, label: 'Países', target: 12, current: 0, sufijo: '' }
   ];
 
   private observer!: IntersectionObserver;
   private counterObserver!: IntersectionObserver;
   private counterStarted = false;
 
-  @ViewChildren('animTarget')     animTargets!: QueryList<ElementRef>;
+  @ViewChildren('animTarget') animTargets!: QueryList<ElementRef>;
   @ViewChildren('counterSection') counterSection!: QueryList<ElementRef>;
 
-  constructor(private postsService: PostsService) {}
+  constructor(private postsService: PostsService) { }
 
   ngOnInit(): void {
     this.misiones = this.postsService.getMisiones();
-    this.valores  = this.postsService.getValores();
+    this.valores = this.postsService.getValores();
   }
 
   ngAfterViewInit(): void {
@@ -48,7 +48,7 @@ export class About implements OnInit, AfterViewInit, OnDestroy {
           this.observer.unobserve(e.target);
         }
       }),
-      { threshold: 0.15 }
+      { threshold: 0.12 }
     );
     this.animTargets.forEach(el => this.observer.observe(el.nativeElement));
 
@@ -66,7 +66,7 @@ export class About implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.observer)        this.observer.disconnect();
+    if (this.observer) this.observer.disconnect();
     if (this.counterObserver) this.counterObserver.disconnect();
   }
 

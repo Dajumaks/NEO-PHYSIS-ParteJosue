@@ -1,10 +1,14 @@
 .rec-card {
+    width: 100%;
+    max-width: 420px;
     background: #ffffff;
-    border-radius: 10px;
+    border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e8e8e8;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
     cursor: pointer;
     transition: transform 0.25s ease, box-shadow 0.25s ease;
+    margin: 0 auto;
 }
 
 .rec-card:hover {
@@ -14,30 +18,37 @@
 
 .rec-imgs {
     display: flex;
-    height: 90px;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    background: #f5f8fb;
 }
 
 .rec-imgs img {
     flex: 1;
+    max-width: 100%;
+    max-height: 120px;
     object-fit: cover;
-    height: 100%;
+    border-radius: 10px;
 }
 
 .rec-body {
-    padding: 10px 12px 12px;
+    padding: 16px;
 }
 
 .rec-titulo {
-    font-size: 13px;
-    font-weight: 600;
+    font-size: 16px;
+    font-weight: 700;
     color: var(--color-text);
-    margin: 0 0 4px;
+    margin: 0 0 10px;
+    line-height: 1.3;
 }
 
 .rec-desc {
-    font-size: 11px;
-    color: #666;
-    line-height: 1.4;
+    font-size: 13px;
+    color: #555;
+    line-height: 1.6;
     margin: 0;
 }
 
